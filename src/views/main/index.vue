@@ -1,9 +1,10 @@
 <template>
   <div>
-    我是移动端主页
+    <navigation-vue></navigation-vue>
   </div>
 </template>
 
 <script setup>
+import navigationVue from './components/navigation/index.vue'
 
 </script>
