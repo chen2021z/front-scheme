@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-red-100 rounded-xl p-8 md:w-48"></div>
+  <div>{{ isMobileTerminal }}</div>
 </template>
 <script setup>
-
+import { isMobileTerminal } from './utils/flexible';
 </script>
