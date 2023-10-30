@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const service = axios.create({
-  baseURL: '/api',
+  // 根据项目状态，自动切换请求的服务地址
+  baseURL: import.meta.env.VITE_BASE_API,
   timeout: 5000
 })
 
