@@ -1,6 +1,7 @@
 <template>
   <div>
     mobile navigation
+    test
   </div>
 </template>
 
