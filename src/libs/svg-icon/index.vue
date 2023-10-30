@@ -25,7 +25,7 @@ const props = defineProps({
 
 // 真实现实的 svg 图标（#icon-)
 const symbolId = computed(()=>{
-  `#icon-${props.name}`
+  return `#icon-${props.name}`
 })
 </script>
 

@@ -5,9 +5,9 @@
     >
       <!-- 汉堡按钮 -->
       <li
-        class="fixed top-0 right-[-1px] h-4 px-1 flex items-center bg-white z-20 shadow-l-white"
+        class="fixed top-0.5 right-[-1px] h-4 px-1 flex items-center bg-white z-20 shadow-l-white"
       >
-        <m-svg-icon name="hambuerger" class="w-1.5 h-1.5"></m-svg-icon>
+        <m-svg-icon name="hamburger" class="w-2 h-2"></m-svg-icon>
       </li>
       <li
         v-for="item in data"
