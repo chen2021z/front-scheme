@@ -29,7 +29,7 @@
       </li>
     </ul>
     <m-popup v-model="popupVisible">
-      <h1>我是内容</h1>
+      <menu-vue :categorys="data" @onItemClick="onItemClick"></menu-vue>
     </m-popup>
   </div>
 </template>
@@ -37,6 +37,7 @@
 <script setup>
 import { useScroll } from '@vueuse/core'
 import { onBeforeUpdate, reactive, ref, watch } from 'vue'
+import MenuVue from '../../menu/index.vue'
 
 defineProps({
   data: {
@@ -81,6 +82,14 @@ watch(currentCategoryIndex, (val) => {
     ulScrollLeft.value + left - ulPadding
   }px)`
   sliderStyle.width = `${width}px`
+
+  // 点击navigation以外的目录，滚动ul
+  if(popupVisible.value){
+    popupVisible.value = false
+    ulTarget.value.scrollLeft += left
+    // 将选中item为视图中间
+    ulTarget.value.scrollLeft -= 140
+  }
 })
 // 点击navagator的item
 const onItemClick = (index) => {
@@ -88,7 +97,7 @@ const onItemClick = (index) => {
 }
 // 控制popup展示
 const popupVisible = ref(false)
-
+// 点击汉堡按钮，显示popup
 const onshowPopup = () => {
   popupVisible.value = true
 }
