@@ -32,7 +32,7 @@
 
 <script setup>
 import { useScroll } from '@vueuse/core'
-import { onBeforeUpdate, ref, watch } from 'vue'
+import { onBeforeUpdate, reactive, ref, watch } from 'vue'
 
 defineProps({
   data: {
@@ -41,7 +41,7 @@ defineProps({
   }
 })
 // 滑块
-const sliderStyle = ref({
+let sliderStyle = reactive({
   transform: 'translateX(0px)',
   width: '77px'
 })
@@ -56,6 +56,7 @@ const setItemRef = (el) => {
     itemRefs.push(el)
   }
 }
+
 // 数据变化之后，DOM变化之前
 onBeforeUpdate(() => {
   itemRefs = []
@@ -69,10 +70,13 @@ const { x: ulScrollLeft } = useScroll(ulTarget)
 watch(currentCategoryIndex, (val) => {
   // 相对于屏幕的位置信息
   const { left, width } = itemRefs[val].getBoundingClientRect()
-  sliderStyle.value = {
-    transform: `translateX(${ulScrollLeft.value + left - 10}px)`,
-    width:`${width}px`
-  }
+  let ulPadding = getComputedStyle(ulTarget.value, null).paddingLeft // 这里因为这种方法获取的是带有9.375px的字符串
+  ulPadding = parseInt(ulPadding)
+  // 滑块的位置 = ul 横向滚动的位置 + 当前元素相对于视口的 left - ul 的padding
+  sliderStyle.transform = `translateX(${
+    ulScrollLeft.value + left - ulPadding
+  }px)`
+  sliderStyle.width = `${width}px`
 })
 
 const onItemClick = (index) => {
