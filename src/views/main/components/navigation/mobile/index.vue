@@ -43,7 +43,7 @@ defineProps({
 // 滑块
 let sliderStyle = reactive({
   transform: 'translateX(0px)',
-  width: '77px'
+  width: '62px'
 })
 
 // 选中 item 元素
