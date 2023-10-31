@@ -7,6 +7,7 @@
       <!-- 汉堡按钮 -->
       <li
         class="fixed top-0.5 right-[-1px] h-4 px-1 flex items-center bg-white z-20 shadow-l-white"
+        @click="onshowPopup"
       >
         <m-svg-icon name="hamburger" class="w-2 h-2"></m-svg-icon>
       </li>
@@ -27,6 +28,9 @@
         {{ item.name }}
       </li>
     </ul>
+    <m-popup v-model="popupVisible">
+      <h1>我是内容</h1>
+    </m-popup>
   </div>
 </template>
 
@@ -78,8 +82,14 @@ watch(currentCategoryIndex, (val) => {
   }px)`
   sliderStyle.width = `${width}px`
 })
-
+// 点击navagator的item
 const onItemClick = (index) => {
   currentCategoryIndex.value = index
+}
+// 控制popup展示
+const popupVisible = ref(false)
+
+const onshowPopup = () => {
+  popupVisible.value = true
 }
 </script>
