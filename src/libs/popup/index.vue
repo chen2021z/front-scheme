@@ -4,15 +4,15 @@
       <!-- 蒙版 -->
       <transition name="fade">
         <div
-          v-if="modelValue"
+          v-if="isVisible"
           class="w-screen h-screen bg-zinc-900/80 z-40 fixed top-0 left-0"
-          @click="emits('update:modelValue', false)"
+          @click="isVisible = false"
         ></div>
       </transition>
       <!-- 内容 -->
       <transition name="popup-down-up">
         <div
-          v-if="modelValue"
+          v-if="isVisible"
           v-bind="$attrs"
           class="w-screen bg-white fixed bottom-0 z-50"
         >
@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { useScrollLock } from '@vueuse/core'
+import { useScrollLock, useVModel } from '@vueuse/core'
 import { watch } from 'vue'
 const props = defineProps({
   modelValue: {
@@ -33,11 +33,12 @@ const props = defineProps({
   }
 })
 const emits = defineEmits(['update:modelValue'])
-
+// 是一个ComputedRef, isVisible的value变化后，会自动触发emits的'update:modelValue'事件
+const isVisible = useVModel(props, 'modelValue', emits)
 // 滚动锁定
 const isLocked = useScrollLock(document.body)
 watch(
-  () => props.modelValue,
+  isVisible,
   (val) => {
     isLocked.value = val
   },
