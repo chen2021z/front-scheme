@@ -1,6 +1,6 @@
 <template>
-  <div>
-    search
+  <div class="w-full">
+    <m-search></m-search>
   </div>
 </template>
 
