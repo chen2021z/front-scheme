@@ -20,6 +20,8 @@
   </div>
 </template>
 <script>
+// 延时关闭时间
+const DELAY_TIME = 200
 const PROP_TOP_LEFT = 'top-left'
 const PROP_TOP_RIGHT = 'top-right'
 const PROP_BOTTOM_LEFT = 'bottom-left'
@@ -71,11 +73,19 @@ const getElementSize = (target) => {
 }
 const isVisible = ref(false)
 
+let timer
 const onMouseenter = () => {
   isVisible.value = true
+  if(timer){
+    clearTimeout(timer)
+  }
 }
+// 延迟关闭
 const onMouseleave = () => {
-  isVisible.value = false
+  timer = setTimeout(() => {
+    isVisible.value = false
+    timer = null
+  }, DELAY_TIME)
 }
 const contentStyle = ref({
   top: 0,
