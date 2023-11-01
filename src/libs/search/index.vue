@@ -122,7 +122,7 @@ onClickOutside(containerTarget, () => {
 const onBlurHandler = () => {
   emits(EMIT_BLUR)
 }
-watch(inputValue, (val)=>{
+watch(inputValue, (val) => {
   emits(EMIT_INPUT, val)
 })
 </script>

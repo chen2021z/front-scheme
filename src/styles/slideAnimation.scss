@@ -1,0 +1,13 @@
+@mixin slideActive($property, $duration) {
+  .slide-enter-active,
+  .slider-leave-active {
+    transition: $property $duration;
+  }
+}
+@mixin slideFromTo($opacity, $Y) {
+  .slide-enter-from,
+  .slide-leave-to {
+    transform: translateY($Y);
+    opacity: $opacity;
+  }
+}
