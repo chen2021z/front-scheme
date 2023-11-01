@@ -22,10 +22,11 @@
       ></m-svg-icon>
       <!-- 分割线 -->
       <div
-        class="opacity-0 group-hover:opacity-100 h-1.5 w-[1px] absolute translate-y-[-50%] top-[50%] right-[62px] duration-500 bg-zinc-200"
+        class="opacity-0 group-hover:opacity-100 h-1.5 w-[1px] absolute translate-y-[-50%] top-[50%] right-[70px] duration-500 bg-zinc-200"
       ></div>
 
       <!-- 搜索按钮 -->
+      <m-button type="main" iconColor="#ffffff" icon="search" class="absolute translate-y-[-50%] top-[50%] right-[10px] rounded-full" ></m-button>
     </div>
 
     <!-- 下拉区 -->
