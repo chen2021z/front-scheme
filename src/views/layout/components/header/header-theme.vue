@@ -7,7 +7,7 @@
         fillClass="bg-zinc-100/60"
       ></m-svg-icon>
     </template>
-    <template #default>
+    <!-- <template #default> -->
       <div class="w-[140px] overflow-hidden">
         <div
           class="flex items-center p-1 cursor-pointer rounded hover:bg-zinc-100/60"
@@ -21,9 +21,8 @@
           <span class="text-zinc-900 text-sm">{{ item.name }}</span>
         </div>
       </div>
-    </template>
+    <!-- </template> -->
   </m-popover>
-  <div>theme</div>
 </template>
 
 <script setup>

@@ -46,7 +46,7 @@
     <!-- 下拉区 -->
     <transition name="slide">
       <div
-        v-if="$slots.dropdown"
+        v-if="slots.dropdown"
         v-show="isFocus"
         class="max-h-[368px] w-full text-base overflow-auto bg-white absolute z-20 left-0 top-[56px] p-2 rounded border border-zinc-200 duration-200 hover:shadow-2xl"
       >
@@ -74,7 +74,8 @@ export default {
 </script>
 <script setup>
 import { onClickOutside, useVModel } from '@vueuse/core'
-import { ref, watch } from 'vue'
+import { ref, useSlots, watch } from 'vue'
+const slots = useSlots()
 /**
  * 1. 输入内容实现双向数据绑定
  * 2. 搜索按钮在 hover 时展示

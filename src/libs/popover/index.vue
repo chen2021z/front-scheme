@@ -8,6 +8,7 @@
     <!-- 气泡展示 -->
     <transition name="slide">
       <div
+        v-if="slots.default"
         ref="contentTarget"
         v-show="isVisible"
         class="absolute p-1 z-20 bg-white border rounded border-zinc-200"
@@ -42,7 +43,8 @@ const placeEnum = [
  * 4. 计算弹层位置
  * 5. 根据 prop，计算样式对象
  */
-import { ref, watch, nextTick } from 'vue'
+import { ref, watch, nextTick, useSlots } from 'vue'
+const slots = useSlots()
 const props = defineProps({
   // 气泡弹出位置，位置不对给出错误提示
   placement: {
@@ -76,7 +78,7 @@ const isVisible = ref(false)
 let timer
 const onMouseenter = () => {
   isVisible.value = true
-  if(timer){
+  if (timer) {
     clearTimeout(timer)
   }
 }
