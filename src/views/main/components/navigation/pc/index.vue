@@ -1,23 +1,27 @@
 <template>
   <div class="bg-white sticky left-0 w-full z-10">
     <ul
-      class="w-[800px] m-auto relative flex flex-wrap justify-center px-[10px] py-1 text-base duration-300"
+      class="w-[800px] m-auto relative flex flex-wrap content-start px-[10px] py-1 text-base duration-300 overflow-hidden"
+      :class="[isOpenCategory ? 'h-[230px]' : 'h-[76px]']"
     >
       <!-- 右边箭头 -->
       <div
-        class="absolute right-1 bottom-1 z-20 p-1 rounded cursor-pointer duration-200 hover:bg-zinc-200"
+        class="absolute right-0 bottom-2 z-20 p-1 rounded cursor-pointer duration-200 hover:bg-zinc-200"
+        @click="triggerState"
       >
         <m-svg-icon
-          name="unfold"
+          :name="isOpenCategory ? 'fold' :  'unfold'"
           class="w-1 h-1"
           fillClass="fill-zinc-900"
         ></m-svg-icon>
       </div>
       <!-- item -->
       <li
-        v-for="item in $store.getters.categorys"
+        v-for="(item,index) in $store.getters.categorys"
         :key="item.id"
-        class="shrink-0 px-1.5 py-1 z-10 duration-200 text-zinc-900 mt-1 font-bold rounded cursor-pointer hover:bg-zinc-200"
+        class="shrink-0 px-1.5 py-1 z-10 ml-[14px] duration-200 text-zinc-900 mt-1 font-bold rounded cursor-pointer hover:bg-zinc-200"
+        :class="[index === currentCategoryIndex ? 'text-zinc-900 bg-zinc-200' : '']"
+        @click="onItemClick(index)"
       >
         {{ item.name }}
       </li>
@@ -25,6 +29,24 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+/**
+ * 展开状态切换
+ */
+const isOpenCategory = ref(false)
+const triggerState = () => {
+  isOpenCategory.value = !isOpenCategory.value
+}
+
+/**
+ * 选中状态处理
+ */
+const currentCategoryIndex = ref(0)
+const onItemClick = (index) => {
+  currentCategoryIndex.value = index
+}
+</script>
 
 <style lang="scss" scoped></style>
