@@ -1,4 +1,4 @@
-import { ALL_CATEGORY_ITEM } from '@/constants'
+import { ALL_CATEGORY_ITEM, CATEGORY_NOMAR_DATA } from '@/constants'
 import { getCategory } from '@/api/category'
 
 /**
@@ -8,7 +8,10 @@ export default {
   // 独立作用域
   namespaced: true,
   state: () => ({
-    categorys: []
+    // 1. 让 category 具备初始化数据
+    // 2. 从服务端获取数据，替换初始化数据
+    // 3. 为了防止初始化数据太老，每次接口得到的值进行缓存，下次运行将缓存值作为初始值
+    categorys: CATEGORY_NOMAR_DATA
   }),
   mutations: {
     setCategorys(state, categorys) {
