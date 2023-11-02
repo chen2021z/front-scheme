@@ -11,7 +11,7 @@
         v-if="slots.default"
         ref="contentTarget"
         v-show="isVisible"
-        class="absolute p-1 z-20 bg-white border rounded border-zinc-200"
+        class="absolute p-1 z-20 bg-white dark:bg-zinc-900 border dark:border-zinc-700 rounded border-zinc-200"
         :style="contentStyle"
       >
         <!-- 匿名插槽：用于展示弹出层的内容 -->

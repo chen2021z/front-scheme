@@ -1,12 +1,12 @@
 <template>
-  <div class="bg-white sticky top-0 left-0 z-10">
+  <div class="bg-white dark:bg-zinc-900 sticky top-0 left-0 z-10">
     <ul
       class="relative flex overflow-x-auto p-1 text-base text-zinc-600 overflow-hidden"
       ref="ulTarget"
     >
       <!-- 汉堡按钮 -->
       <li
-        class="fixed top-0.5 right-[-1px] h-4 px-1 flex items-center bg-white z-20 shadow-l-white"
+        class="fixed top-0.5 right-[-1px] h-4 px-1 flex items-center bg-white z-20 shadow-l-white dark:bg-zinc-900 dark:shadow-l-zinc"
         @click="onshowPopup"
       >
         <m-svg-icon name="hamburger" class="w-2 h-2"></m-svg-icon>
@@ -15,7 +15,7 @@
       <li
         ref="sliderTarget"
         :style="sliderStyle"
-        class="absolute h-[22px] bg-zinc-900 rounded-lg duration-200 my-0.5"
+        class="absolute h-[22px] bg-zinc-900 rounded-lg duration-200 my-0.5 dark:bg-zinc-800"
       ></li>
       <li
         v-for="(item, index) in $store.getters.categorys"

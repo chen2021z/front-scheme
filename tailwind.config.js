@@ -1,5 +1,7 @@
 module.exports = {
   content: ['./index.html', './src/**/*.{vue,js}'],
+  // 黑暗模式
+  darkMode: 'class',
   theme: {
     extend: {
       fontSize: {
@@ -11,7 +13,8 @@ module.exports = {
       },
       // 自定义样式
       boxShadow: {
-        'l-white':'-10px 0 10px white'
+        'l-white':'-10px 0 10px white',
+        'l-zinc':'-10px 0 10px #18181b'
       },
       height:{
         header:'72px',
