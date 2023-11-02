@@ -4,10 +4,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { useREM } from './utils/flexible'
+import useTheme from '@/utils/theme'
 import mLibs from './libs'
 // 注册 svg-icon
 import 'virtual:svg-icons-register'
 
 useREM()
+useTheme()
 
 createApp(App).use(router).use(store).use(mLibs).mount('#app')
