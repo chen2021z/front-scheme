@@ -18,7 +18,7 @@
         class="absolute h-[22px] bg-zinc-900 rounded-lg duration-200 my-0.5"
       ></li>
       <li
-        v-for="(item, index) in data"
+        v-for="(item, index) in $store.getters.categorys"
         :key="item.id"
         :ref="setItemRef"
         class="shrink-0 px-1.5 py-0.5 duration-200 last:mr-4 z-10"
@@ -29,7 +29,7 @@
       </li>
     </ul>
     <m-popup v-model="popupVisible">
-      <menu-vue :categorys="data" @onItemClick="onItemClick"></menu-vue>
+      <menu-vue @onItemClick="onItemClick"></menu-vue>
     </m-popup>
   </div>
 </template>
@@ -39,12 +39,6 @@ import { useScroll } from '@vueuse/core'
 import { onBeforeUpdate, reactive, ref, watch } from 'vue'
 import MenuVue from '../../menu/index.vue'
 
-defineProps({
-  data: {
-    type: Array,
-    required: true
-  }
-})
 // 滑块
 let sliderStyle = reactive({
   transform: 'translateX(0px)',
