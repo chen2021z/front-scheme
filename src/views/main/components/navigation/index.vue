@@ -1,18 +1,17 @@
 <template>
   <mobile-navigation-vue v-if="isMobileTerminal"></mobile-navigation-vue>
+  <pc-navigation-vue v-else></pc-navigation-vue>
 </template>
 
 <script setup>
-import { isMobileTerminal } from '@/utils/flexible';
+import { isMobileTerminal } from '@/utils/flexible'
 import mobileNavigationVue from './mobile/index.vue'
-import { useStore } from 'vuex';
+import pcNavigationVue from './pc/index.vue'
+import { useStore } from 'vuex'
 
-const store = useStore();
+const store = useStore()
 // 触发 category 获取数据
-store.dispatch('category/useCategoryData');
-
+store.dispatch('category/useCategoryData')
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
