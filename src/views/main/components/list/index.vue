@@ -1,6 +1,6 @@
 <template>
   <div>
-    <m-waterfall :data="pexelsList" nodeKey="id" :column="5" :picturePreReading="true">
+    <m-waterfall :data="pexelsList" nodeKey="id" :column="5" :picturePreReading="false">
       <template v-slot="{ item, width }">
         <item-vue :data="item"></item-vue>
       </template>

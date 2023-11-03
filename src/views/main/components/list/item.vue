@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white dark:bg-zinc-900 xl:dark:bg-zinc-800 rounded pb-1 h-[380px] w-[230px]"
+    class="bg-white dark:bg-zinc-900 xl:dark:bg-zinc-800 rounded pb-1"
   >
     <div class="group relative w-full cursor-zoom-in">
       <!-- 图片 -->
