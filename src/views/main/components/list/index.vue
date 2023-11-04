@@ -1,6 +1,6 @@
 <template>
   <div>
-    <m-waterfall class="p-1 w-full"  :data="pexelsList" nodeKey="id" :column="isMobileTerminal ? 2 : 5" :picturePreReading="false" :rowSpacing="10">
+    <m-waterfall class="p-1 w-full"  :data="pexelsList" nodeKey="id" :column="isMobileTerminal ? 2 : 5" :picturePreReading="true" :rowSpacing="10">
       <template v-slot="{ item, width }">
         <item-vue :data="item" :width="width"></item-vue>
       </template>

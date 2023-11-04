@@ -9,7 +9,7 @@
       <div
         v-for="(item, index) in data"
         :key="nodeKey ? item[nodeKey] : index"
-        class="m-waterfull-item absolute"
+        class="m-waterfull-item absolute duration-500"
         :style="{
           width: columnWidth + 'px',
           left: item._style?.left + 'px',
@@ -236,7 +236,7 @@ watch(
   }
 )
 watch(
-  () => props.column,
+  [() => props.column, () => props.rowSpacing, () => props.columnSpacing],
   () => {
     // 重新计算列宽
     useColumnWidth()
