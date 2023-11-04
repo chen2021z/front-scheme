@@ -46,7 +46,6 @@
       <span class="text-sm text-zinc-500 ml-1">{{ data.author }}</span>
     </div>
   </div>
-  <!-- {{ data }} -->
 </template>
 
 <script setup>

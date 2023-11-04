@@ -1,10 +1,23 @@
 <template>
   <div>
-    <m-waterfall class="p-1 w-full"  :data="pexelsList" nodeKey="id" :column="isMobileTerminal ? 2 : 5" :picturePreReading="true" :rowSpacing="10">
-      <template v-slot="{ item, width }">
-        <item-vue :data="item" :width="width"></item-vue>
-      </template>
-    </m-waterfall>
+    <m-infinite
+      v-model="loading"
+      :isFinished="isFinished"
+      @onLoad="getPexelsData"
+    >
+      <m-waterfall
+        class="p-1 w-full"
+        :data="pexelsList"
+        nodeKey="id"
+        :column="isMobileTerminal ? 2 : 5"
+        :picturePreReading="false"
+        :rowSpacing="10"
+      >
+        <template v-slot="{ item, width }">
+          <item-vue :data="item" :width="width"></item-vue>
+        </template>
+      </m-waterfall>
+    </m-infinite>
   </div>
 </template>
 
@@ -12,13 +25,28 @@
 import { getPexelsList } from '@/api/pexels'
 import itemVue from './item.vue'
 import { ref } from 'vue'
-import { isMobileTerminal } from '@/utils/flexible';
+import { isMobileTerminal } from '@/utils/flexible'
 
-let query = { page: 1, size: 20 }
+// 数据是否在加载中
+const loading = ref(false)
+// 数据是否全部加载完成
+const isFinished = ref(false)
+
+let query = { page: 0, size: 20 }
+// 数据源
 const pexelsList = ref([])
 const getPexelsData = async () => {
+  if (isFinished.value) return
+  // 让 page 自增
+  query.page++
   let res = await getPexelsList(query)
-  pexelsList.value = res.list
+  pexelsList.value.push(...res.list)
+
+  // 判断是否全部加载完成
+  if (pexelsList.value.length === res.total) {
+    isFinished.value = true
+  }
+  loading.value = false
 }
 getPexelsData()
 </script>
