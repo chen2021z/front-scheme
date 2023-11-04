@@ -1,10 +1,10 @@
 <template>
-  <div
-    class="bg-white dark:bg-zinc-900 xl:dark:bg-zinc-800 rounded pb-1"
-  >
+  <div class="bg-white dark:bg-zinc-900 xl:dark:bg-zinc-800 rounded pb-1">
     <div class="group relative w-full cursor-zoom-in">
       <!-- 图片 -->
-      <img :src="data.photo" class="w-full rounded" />
+      <img :src="data.photo" class="w-full rounded" :style="{
+        height: (width / data.photoWidth) * data.photoHeight + 'px'
+      }"/>
       <!-- 遮罩层 -->
       <div
         class="hidden xl:block opacity-0 w-full h-full absolute bg-zinc-900/50 top-0 left-0 rounded duration-300 group-hover:opacity-100"
@@ -54,6 +54,9 @@ defineProps({
   data: {
     type: Object,
     required: true
+  },
+  width: {
+    type: Number
   }
 })
 </script>
