@@ -33,3 +33,27 @@ export const onComplateImgs = (imgs) => {
   })
   return Promise.all(promises)
 }
+
+/**
+ * 返回列高对象中最小高度所在的列 index
+ */
+export const getMinHeightIndex = (columnHeightObj) => {
+  const minHeight = getMinHeight(columnHeightObj)
+  return Object.keys(columnHeightObj).find(
+    (key) => columnHeightObj[key] === minHeight
+  )
+}
+
+/**
+ * 获取多列中的最小高度
+ */
+export const getMinHeight = (columnHeightObj) => {
+  return Math.min(...Object.values(columnHeightObj))
+}
+
+/**
+ * 获取多列中的最大高度
+ */
+export const getMaxHeight = (columnHeightObj) => {
+  return Math.min(...Object.values(columnHeightObj))
+}
