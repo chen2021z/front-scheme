@@ -5,11 +5,11 @@
     :style="{ height: containerHeight + 'px' }"
   >
     <!-- 数据渲染 -->
-    <template v-if="data.length && columnWidth">
+    <template v-if="columnWidth && data.length">
       <div
         v-for="(item, index) in data"
         :key="nodeKey ? item[nodeKey] : index"
-        class="m-waterfull-item absolute duration-300"
+        class="m-waterfull-item absolute"
         :style="{
           width: columnWidth + 'px',
           left: item._style?.left + 'px',
@@ -20,7 +20,7 @@
       </div>
     </template>
     <!-- 加载中 -->
-    <div v-else></div>
+    <div v-else>loading...</div>
   </div>
 </template>
 <script>
@@ -136,6 +136,7 @@ const waitImgComplate = () => {
   itemHeights = []
   // 拿到所有元素
   let itemElements = [...document.getElementsByClassName('m-waterfull-item')]
+
   // 获取所有的 img 元素
   const imgElements = getImgElements(itemElements)
   // 获取所有图片的链接
@@ -146,22 +147,20 @@ const waitImgComplate = () => {
     itemElements.forEach((el) => {
       itemHeights.push(el.clientHeight)
     })
+    // 渲染位置
+    useItemLocation()
   })
-  // 渲染位置
-  useItemLocation()
 }
 /**
  * 得到每个 item 的位置信息
  */
 const useItemLocation = () => {
-  // 获取位置信息前重新计算列宽
-  useColumnWidth()
   // 遍历数据源
   props.data.forEach((item, index) => {
     // 避免重复计算
-    // if (item._style) {
-    //   return
-    // }
+    if (item._style) {
+      return
+    }
     // 生成 style 元素
     item._style = {}
     item._style.left = getItemLeft()
@@ -179,7 +178,6 @@ const useItemLocation = () => {
 const getItemLeft = () => {
   // 获取最小列 index
   const minIndex = getMinHeightIndex(columnHeightObj.value)
-  // console.log('containerLeft.value', containerLeft.value)
   return (
     minIndex * (props.columnSpacing + columnWidth.value) + containerLeft.value
   )
@@ -197,9 +195,7 @@ const getItemTop = () => {
 const increaseHeight = (index) => {
   //最小高度所在列
   const minIndex = getMinHeightIndex(columnHeightObj.value)
-  // console.log(minIndex, itemHeights[index]);
   // 该列高度自增
-  // console.log(columnHeightObj.value[minIndex]);
   columnHeightObj.value[minIndex] += itemHeights[index] + props.rowSpacing
 }
 
@@ -219,13 +215,13 @@ const useItemHeight = () => {
 }
 // 触发计算
 watch(
-  [()=> props.column, () => props.data, () => props.rowSpacing],
+  () => props.data,
   (newVal) => {
-    // 如果数组有一个没有._style，则重新构建容器
-    // const resetColumnHeight = newVal.some((item) => !item._style)
-    // if (resetColumnHeight) {
-    useColumnHeightObj()
-    // }
+    // 如果数组每一个都没有._style，则重新构建容器
+    const resetColumnHeight = newVal.every((item) => !item._style)
+    if (resetColumnHeight) {
+      useColumnHeightObj()
+    }
     nextTick(() => {
       if (props.picturePreReading) {
         waitImgComplate()
@@ -233,10 +229,22 @@ watch(
         useItemHeight()
       }
     })
+  },
+  {
+    // immediate: true,
+    deep: true
   }
-  // {
-  //   deep: true
-  // }
+)
+watch(
+  () => props.column,
+  () => {
+    // 重新计算列宽
+    useColumnWidth()
+    // 重置所有定位数据
+    props.data.forEach((item) => {
+      item._style = null
+    })
+  }
 )
 </script>
 
