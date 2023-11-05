@@ -8,5 +8,7 @@ export default {
   // 当前category 的下标
   currentCategoryIndex: (state, getters) => {
     return getters.categorys.findIndex((item) => item.id === getters.currentCategory.id)
-  }
+  },
+  // 搜索历史数据
+  historys: (state) => state.search.historys,
 }
