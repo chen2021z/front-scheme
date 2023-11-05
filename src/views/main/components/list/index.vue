@@ -48,7 +48,6 @@ const getPexelsData = async () => {
   }
   loading.value = false
 }
-getPexelsData()
 </script>
 
 <style lang="scss" scoped></style>

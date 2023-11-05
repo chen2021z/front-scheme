@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 内容 -->
-    <slot ></slot>
+    <slot></slot>
     <div ref="loadingTarget" class="h-6 py-4">
       <!-- 加载更多 -->
       <m-svg-icon
@@ -25,7 +25,7 @@ export default {
 
 <script setup>
 import { useIntersectionObserver, useVModel } from '@vueuse/core'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 const props = defineProps({
   // 是否处于加载状态
   modelValue: {
@@ -41,18 +41,38 @@ const props = defineProps({
 const emits = defineEmits(['onLoad', 'update:modelValue'])
 // 处理 loding状态
 const loading = useVModel(props, 'modelValue', emits)
+// 用于判断当前 loading DOM 是否与视口交叉
+const targetIsIntersecting = ref(false)
 // 滚动元素
 const loadingTarget = ref(null)
 useIntersectionObserver(
   loadingTarget,
   ([{ isIntersecting }], observerElement) => {
-    if (isIntersecting && !loading.value && !props.isFinished) {
-      loading.value = true
-      // 触发加载更多
-      emits('onLoad')
-    }
+    targetIsIntersecting.value = isIntersecting
+    // 初始化执行一次
+    emitLoad()
   }
 )
+/**
+ * 触发 load
+ */
+const emitLoad = () => {
+  // 数据请求完毕后，loading -> false 才会执行
+  if (targetIsIntersecting.value && !loading.value && !props.isFinished) {
+    // 切换为 loading 状态
+    loading.value = true
+    // 触发加载更多
+    emits('onLoad')
+  }
+}
+
+/**
+ * 需要监听 loading 状态，
+ */
+watch(loading, (val) => {
+  setTimeout(emitLoad, 100)
+  // emitLoad()
+})
 </script>
 
 <style lang="scss" scoped></style>
