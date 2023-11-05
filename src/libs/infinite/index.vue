@@ -70,7 +70,7 @@ const emitLoad = () => {
  * 需要监听 loading 状态，
  */
 watch(loading, (val) => {
-  setTimeout(emitLoad, 300)
+  setTimeout(emitLoad, 1000)
 })
 </script>
 

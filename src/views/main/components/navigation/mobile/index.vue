@@ -22,8 +22,10 @@
         :key="item.id"
         :ref="setItemRef"
         class="shrink-0 px-1.5 py-0.5 duration-200 last:mr-4 z-10"
-        :class="{ 'text-zinc-100': index === currentCategoryIndex }"
-        @click="onItemClick(index)"
+        :class="{
+          'text-zinc-100': index === $store.getters.currentCategoryIndex
+        }"
+        @click="onItemClick(item)"
       >
         {{ item.name }}
       </li>
@@ -37,16 +39,14 @@
 <script setup>
 import { useScroll } from '@vueuse/core'
 import { onBeforeUpdate, reactive, ref, watch } from 'vue'
+import { useStore } from 'vuex'
 import MenuVue from '../../menu/index.vue'
-
+const store = useStore()
 // 滑块
 let sliderStyle = reactive({
   transform: 'translateX(0px)',
   width: '62px'
 })
-
-// 选中 item 元素
-const currentCategoryIndex = ref(0)
 
 // 获取所有的 item 元素
 let itemRefs = []
@@ -66,28 +66,31 @@ const ulTarget = ref(null)
 // 获取scroll滚动的响应式数据
 const { x: ulScrollLeft } = useScroll(ulTarget)
 
-watch(currentCategoryIndex, (val) => {
-  // 相对于屏幕的位置信息
-  const { left, width } = itemRefs[val].getBoundingClientRect()
-  let ulPadding = getComputedStyle(ulTarget.value, null).paddingLeft // 这里因为这种方法获取的是带有9.375px的字符串
-  ulPadding = parseInt(ulPadding)
-  // 滑块的位置 = ul 横向滚动的位置 + 当前元素相对于视口的 left - ul 的padding
-  sliderStyle.transform = `translateX(${
-    ulScrollLeft.value + left - ulPadding
-  }px)`
-  sliderStyle.width = `${width}px`
+watch(
+  () => store.getters.currentCategoryIndex,
+  (val) => {
+    // 相对于屏幕的位置信息
+    const { left, width } = itemRefs[val].getBoundingClientRect()
+    let ulPadding = getComputedStyle(ulTarget.value, null).paddingLeft // 这里因为这种方法获取的是带有9.375px的字符串
+    ulPadding = parseInt(ulPadding)
+    // 滑块的位置 = ul 横向滚动的位置 + 当前元素相对于视口的 left - ul 的padding
+    sliderStyle.transform = `translateX(${
+      ulScrollLeft.value + left - ulPadding
+    }px)`
+    sliderStyle.width = `${width}px`
 
-  // 点击navigation以外的目录，滚动ul
-  if(popupVisible.value){
-    popupVisible.value = false
-    ulTarget.value.scrollLeft += left
-    // 将选中item为视图中间
-    ulTarget.value.scrollLeft -= 140
+    // 点击navigation以外的目录，滚动ul
+    if (popupVisible.value) {
+      popupVisible.value = false
+      ulTarget.value.scrollLeft += left
+      // 将选中item为视图中间
+      ulTarget.value.scrollLeft -= 140
+    }
   }
-})
+)
 // 点击navagator的item
-const onItemClick = (index) => {
-  currentCategoryIndex.value = index
+const onItemClick = (item) => {
+  store.commit('app/changeCurrentCategory', item)
 }
 // 控制popup展示
 const popupVisible = ref(false)
