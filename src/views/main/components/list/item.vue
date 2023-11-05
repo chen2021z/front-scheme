@@ -2,9 +2,14 @@
   <div class="bg-white dark:bg-zinc-900 xl:dark:bg-zinc-800 rounded pb-1">
     <div class="group relative w-full cursor-zoom-in">
       <!-- 图片 -->
-      <img :src="data.photo" class="w-full rounded" :style="{
-        height: (width / data.photoWidth) * data.photoHeight + 'px'
-      }"/>
+      <img
+        v-lazy
+        :src="data.photo"
+        class="w-full rounded"
+        :style="{
+          height: (width / data.photoWidth) * data.photoHeight + 'px'
+        }"
+      />
       <!-- 遮罩层 -->
       <div
         class="hidden xl:block opacity-0 w-full h-full absolute bg-zinc-900/50 top-0 left-0 rounded duration-300 group-hover:opacity-100"
@@ -42,7 +47,7 @@
     </p>
     <!-- 作者 -->
     <div class="flex items-center mt-1 px-1">
-      <img :src="data.avatar" class="h-2 w-2 rounded-full" />
+      <img v-lazy :src="data.avatar" class="h-2 w-2 rounded-full" />
       <span class="text-sm text-zinc-500 ml-1">{{ data.author }}</span>
     </div>
   </div>
