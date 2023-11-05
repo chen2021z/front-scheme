@@ -1,6 +1,11 @@
 <template>
   <div class="bg-white dark:bg-zinc-900 xl:dark:bg-zinc-800 rounded pb-1">
-    <div class="group relative w-full cursor-zoom-in">
+    <div
+      class="group relative w-full cursor-zoom-in rounded"
+      :style="{
+        backgroundColor: randomRGB()
+      }"
+    >
       <!-- 图片 -->
       <img
         v-lazy
@@ -54,6 +59,7 @@
 </template>
 
 <script setup>
+import { randomRGB } from '@/utils/color.js'
 defineProps({
   data: {
     type: Object,
