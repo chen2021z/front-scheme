@@ -4,7 +4,11 @@
       <template #dropdown>
         <div>
           <!-- 搜索提示列表 -->
-          <hint-vue v-show="inputValue" :search-text="inputValue" @item-click="onSearchHandler"></hint-vue>
+          <hint-vue
+            v-show="inputValue"
+            :search-text="inputValue"
+            @item-click="onSearchHandler"
+          ></hint-vue>
         </div>
       </template>
     </m-search>
@@ -12,8 +16,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import hintVue from "./hint.vue";
+import { ref } from 'vue'
+import hintVue from './hint.vue'
 
 const inputValue = ref('')
 /**
