@@ -26,7 +26,7 @@ import { getPexelsList } from '@/api/pexels'
 import itemVue from './item.vue'
 import { ref, watch } from 'vue'
 import { isMobileTerminal } from '@/utils/flexible'
-import store from '../../../../store'
+import store from '@/store'
 // 数据是否在加载中
 const loading = ref(false)
 // 数据是否全部加载完成
@@ -48,6 +48,17 @@ watch(
   () => store.getters.currentCategory,
   (currentCategory) => {
     resetQuery({ page: 0, categoryId: currentCategory.id })
+  }
+)
+// 监听搜索内容项的变化
+watch(
+  () => store.getters.searchText,
+  (val) => {
+    // 重置请求参数
+    resetQuery({
+      page: 0,
+      searchText: val
+    })
   }
 )
 // 数据源

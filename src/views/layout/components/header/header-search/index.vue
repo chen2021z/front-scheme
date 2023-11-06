@@ -33,10 +33,15 @@ const inputValue = ref('')
  * 搜索回调
  */
 const onSearchHandler = (text) => {
-  inputValue.value = text
   // 关闭搜索框
   search.value.isFocus = false
-  store.commit('search/addHistory', text)
+  if (text) {
+    inputValue.value = text
+    // 添加历史数据
+    store.commit('search/addHistory', text)
+    // 更新搜索关键词
+    store.commit('app/changeSearchText', text)
+  }
 }
 </script>
 
