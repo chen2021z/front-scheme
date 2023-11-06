@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <m-search v-model="inputValue" @search="onSearchHandler">
+    <m-search ref="search" v-model="inputValue" @search="onSearchHandler">
       <template #dropdown>
         <div>
           <!-- 搜索提示列表 -->
@@ -23,6 +23,7 @@ import { ref } from 'vue'
 import hintVue from './hint.vue'
 import historyVue from './history.vue'
 import store from '../../../../../store'
+const search = ref(null)
 
 const inputValue = ref('')
 /**
@@ -30,9 +31,9 @@ const inputValue = ref('')
  */
 const onSearchHandler = (text) => {
   inputValue.value = text
-  if (text) {
-    store.commit('search/addHistory', text)
-  }
+  // 关闭搜索框
+  search.value.isFocus = false
+  store.commit('search/addHistory', text)
 }
 </script>
 

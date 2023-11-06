@@ -13,6 +13,7 @@
       ></m-svg-icon>
       <!-- 输入框 -->
       <input
+        ref="inputTarget"
         type="text"
         class="block w-full h-[44px] pl-4 outline-0 duration-500 bg-zinc-100 dark:bg-zinc-800 caret-zinc-400 rounded-xl text-zinc-400 dark:text-zinc-200 tracking-wide text-sm font-semibold border border-zinc-100 dark:border-zinc-700 focus:border-red-200 group-hover:bg-white dark:group-hover:bg-zinc-900 group-hover:border-zinc-200 dark:group-hover:border-zinc-700"
         placeholder="搜索"
@@ -84,6 +85,7 @@ const slots = useSlots()
  * 5. 下拉展示区控制
  * 6. 事件处理
  */
+const inputTarget = ref(null)
 const props = defineProps({
   modelValue: {
     type: String,
@@ -108,7 +110,7 @@ const onClearClick = () => {
 // 点击搜索
 const onSearchClick = () => {
   emits(EMIT_SEARCH, inputValue.value)
-  isFocus.value = false
+  inputTarget.value.blur()
 }
 const isFocus = ref(false)
 const onFoucsHandler = () => {
@@ -126,6 +128,9 @@ const onBlurHandler = () => {
 }
 watch(inputValue, (val) => {
   emits(EMIT_INPUT, val)
+})
+defineExpose({
+  isFocus
 })
 </script>
 

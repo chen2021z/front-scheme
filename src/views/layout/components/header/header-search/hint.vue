@@ -6,8 +6,7 @@
       class="py-1 pl-1 text-base font-bold text-zinc-500 rounded cursor-pointer duration-300 hover:bg-zinc-200 dark:hover:bg-zinc-900"
       @click="onItemClick(item)"
       v-html="highlightText(item)"
-    >
-    </div>
+    ></div>
   </div>
 </template>
 
