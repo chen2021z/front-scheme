@@ -1,4 +1,5 @@
 import { defineAsyncComponent } from 'vue'
+export { confirm } from './confirm'
 
 
 export default{
