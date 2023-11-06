@@ -1,5 +1,5 @@
 <template>
-  <transition name="down" >
+  <transition name="down">
     <div
       v-show="isVisable"
       class="min-w-[420px] fixed top-[20px] left-[50%] translate-x-[-50%] z-50 flex items-center px-3 py-1.5 rounded-sm border cursor-pointer"
@@ -91,7 +91,7 @@ const styles = {
       'bg-success-100 border-success-200  hover:shadow-lg hover:shadow-success-100'
   }
 }
-
+const animDuration = '0.5s'
 // 控制显示处理
 const isVisable = ref(false)
 /**
@@ -104,6 +104,11 @@ onMounted(() => {
    */
   setTimeout(() => {
     isVisable.value = false
+    // 延时销毁
+    setTimeout(
+      props.destroy,
+      parseInt(animDuration.replace('0.', '').replace('s', '')) * 100
+    )
   }, props.duration)
 })
 </script>
@@ -111,7 +116,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .down-enter-active,
 .down-leave-active {
-  transition: all 0.5s;
+  transition: all v-bind(animDuration);
 }
 
 .down-enter-from,
