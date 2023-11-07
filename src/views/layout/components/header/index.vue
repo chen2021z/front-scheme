@@ -6,7 +6,7 @@
       <img
         v-lazy
         src="@/assets/vue.svg"
-        class="h-4 cursor-pointer mr-2"
+        class="h-4 cursor-pointer mr-2 guide-home"
         @click="onToHome"
       />
       <header-search-vue></header-search-vue>

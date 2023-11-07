@@ -8,7 +8,7 @@
 
 <script setup>
 import headerVue from './components/header/index.vue'
-import floatingVue from './components/floating.vue'
+import floatingVue from './components/floating/floating.vue'
 import mainVue from './components/main.vue'
 
 </script>
