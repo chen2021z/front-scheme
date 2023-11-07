@@ -72,4 +72,8 @@ const onGuideClick = () => {
 </script>
 
 <style lang="scss" scoped>
+.driver-fix-stacking {
+  position: fixed;
+  z-index: 100004 !important;
+}
 </style>

@@ -7,3 +7,10 @@
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
 }
+
+.driver-fix-stacking {
+  position: relative;
+}
+.driver-navigation-btns {
+  line-height: 0;
+}
