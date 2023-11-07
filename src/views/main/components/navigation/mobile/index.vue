@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white dark:bg-zinc-900 sticky top-0 left-0 z-10">
     <ul
-      class="relative flex overflow-x-auto p-1 text-base text-zinc-600 overflow-hidden"
+      class="relative flex overflow-x-auto p-1 text-base text-zinc-600 overflow-hidden "
       ref="ulTarget"
     >
       <!-- 汉堡按钮 -->
