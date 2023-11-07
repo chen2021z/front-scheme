@@ -8,6 +8,7 @@
     >
       <!-- 图片 -->
       <img
+        ref="imgTarget"
         v-lazy
         :src="data.photo"
         class="w-full rounded"
@@ -44,6 +45,7 @@
           size="small"
           icon="full"
           iconClass="fill-zinc-900 dark:fill-zinc-200"
+          @click="onImgFullScreen"
         ></m-button>
       </div>
     </div>
@@ -63,7 +65,8 @@
 import { randomRGB } from '@/utils/color.js'
 import { message } from '@/libs'
 import { saveAs } from 'file-saver'
-
+import { useFullscreen } from '@vueuse/core'
+import { ref } from 'vue'
 const props = defineProps({
   data: {
     type: Object,
@@ -73,7 +76,6 @@ const props = defineProps({
     type: Number
   }
 })
-
 /**
  * 下载按钮点击事件
  */
@@ -84,4 +86,9 @@ const onDownload = () => {
     saveAs(props.data.photoDownLink)
   }, 500)
 }
+/**
+ * 生成全屏方法
+ */
+const imgTarget = ref(null)
+const { enter: onImgFullScreen } = useFullscreen(imgTarget)
 </script>
