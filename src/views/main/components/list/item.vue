@@ -5,6 +5,7 @@
       :style="{
         backgroundColor: randomRGB()
       }"
+      @click="onToPinsClick"
     >
       <!-- 图片 -->
       <img
@@ -91,4 +92,16 @@ const onDownload = () => {
  */
 const imgTarget = ref(null)
 const { enter: onImgFullScreen } = useFullscreen(imgTarget)
+
+const emits = defineEmits(['click'])
+
+/**
+ * 进入详情点击事件
+ */
+const onToPinsClick = () => {
+  emits('click', {
+    id: props.data.id
+  })
+}
+
 </script>

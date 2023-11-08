@@ -14,7 +14,7 @@
         :rowSpacing="10"
       >
         <template v-slot="{ item, width }">
-          <item-vue :data="item" :width="width"></item-vue>
+          <item-vue :data="item" :width="width" @click="onToPins"></item-vue>
         </template>
       </m-waterfall>
     </m-infinite>
@@ -75,6 +75,12 @@ const getPexelsData = async () => {
     isFinished.value = true
   }
   loading.value = false
+}
+/**
+ * 进入 pins
+ */
+const onToPins = (item) => {
+  history.pushState(null, null, `/pins/${item.id}`)
 }
 </script>
 
