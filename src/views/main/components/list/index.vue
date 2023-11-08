@@ -38,6 +38,8 @@ import { ref, watch } from 'vue'
 import { isMobileTerminal } from '@/utils/flexible'
 import store from '@/store'
 import pinsVue from '@/views/pins/components/pins.vue'
+import gsap from 'gsap'
+import { useEventListener } from '@vueuse/core'
 // 数据是否在加载中
 const loading = ref(false)
 // 数据是否全部加载完成
@@ -100,7 +102,45 @@ const onToPins = (item) => {
   currentPins.value = item
   isVisiblePins.value = true
 }
+/**
+ * 监听浏览器后退按钮事件
+ */
+useEventListener(window, 'popstate', () => {
+  isVisiblePins.value = false
+})
 
+const beforeEnter = (el) => {
+  console.log(currentPins.value)
+  gsap.set(el, {
+    scaleX: 0,
+    scaleY: 0,
+    transformOrigin: '0 0',
+    translateX: currentPins.value.location?.translateX,
+    translateY: currentPins.value.location?.translateY,
+    opacity: 0
+  })
+}
+const enter = (el, done) => {
+  gsap.to(el, {
+    duration: 0.5,
+    scaleX: 1,
+    scaleY: 1,
+    opacity: 1,
+    translateX: 0,
+    translateY: 0,
+    onComplete: done
+  })
+}
+const leave = (el, done) => {
+  gsap.to(el, {
+    duration: 0.5,
+    scaleX: 0,
+    scaleY: 0,
+    x: currentPins.value.location?.translateX,
+    y: currentPins.value.location?.translateY,
+    opacity: 0
+  })
+}
 </script>
 
 <style lang="scss" scoped></style>
