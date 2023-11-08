@@ -18,6 +18,16 @@
         </template>
       </m-waterfall>
     </m-infinite>
+
+    <!-- 大图详情处理 -->
+    <transition
+      :css="false"
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @leave="leave"
+    >
+      <pins-vue v-if="isVisiblePins" :id="currentPins.id" />
+    </transition>
   </div>
 </template>
 
@@ -27,6 +37,7 @@ import itemVue from './item.vue'
 import { ref, watch } from 'vue'
 import { isMobileTerminal } from '@/utils/flexible'
 import store from '@/store'
+import pinsVue from '@/views/pins/components/pins.vue'
 // 数据是否在加载中
 const loading = ref(false)
 // 数据是否全部加载完成
@@ -76,12 +87,20 @@ const getPexelsData = async () => {
   }
   loading.value = false
 }
+
+// 控制 pins 展示
+const isVisiblePins = ref(false)
+// 当前选中的 pins 属性
+const currentPins = ref({})
 /**
  * 进入 pins
  */
 const onToPins = (item) => {
   history.pushState(null, null, `/pins/${item.id}`)
+  currentPins.value = item
+  isVisiblePins.value = true
 }
+
 </script>
 
 <style lang="scss" scoped></style>
