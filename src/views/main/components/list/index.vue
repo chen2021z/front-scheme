@@ -45,7 +45,7 @@ const loading = ref(false)
 // 数据是否全部加载完成
 const isFinished = ref(false)
 
-let query = { page: 0, size: 20 }
+let query = { page: 2, size: 20 }
 /**
  * 通过重置quer有，重新发起请求
  */
@@ -60,7 +60,7 @@ const resetQuery = (newQuery) => {
 watch(
   () => store.getters.currentCategory,
   (currentCategory) => {
-    resetQuery({ page: 0, categoryId: currentCategory.id })
+    resetQuery({ page: 2, categoryId: currentCategory.id })
   }
 )
 // 监听搜索内容项的变化
@@ -69,7 +69,7 @@ watch(
   (val) => {
     // 重置请求参数
     resetQuery({
-      page: 0,
+      page: 2,
       searchText: val
     })
   }
