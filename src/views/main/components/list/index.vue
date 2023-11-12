@@ -110,7 +110,6 @@ useEventListener(window, 'popstate', () => {
 })
 
 const beforeEnter = (el) => {
-  console.log(currentPins.value)
   gsap.set(el, {
     scaleX: 0,
     scaleY: 0,
@@ -122,7 +121,7 @@ const beforeEnter = (el) => {
 }
 const enter = (el, done) => {
   gsap.to(el, {
-    duration: 0.5,
+    duration: 0.4,
     scaleX: 1,
     scaleY: 1,
     opacity: 1,
