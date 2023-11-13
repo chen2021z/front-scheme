@@ -50,7 +50,10 @@
           </a>
         </div>
 
-        <m-button class="w-full dark:bg-zinc-900 xl:dark:bg-zinc-800" :isActiveAnim="false">
+        <m-button
+          class="w-full dark:bg-zinc-900 xl:dark:bg-zinc-800"
+          :isActiveAnim="false"
+        >
           登录
         </m-button>
       </vee-form>
@@ -63,6 +66,12 @@
       </div>
     </div>
   </div>
+  <!-- 人类行为验证模块 -->
+  <slider-captcha-vue
+    v-if="isSliderCaptchaVisible"
+    @close="isSliderCaptchaVisible = false"
+    @success="onCaptchaSuccess"
+  />
 </template>
 <script>
 export default {
@@ -77,11 +86,25 @@ import {
   ErrorMessage as VeeErrorMessage
 } from 'vee-validate'
 import { validateUsername, validatePassword } from '../validate'
+import sliderCaptchaVue from './slider-captcha.vue'
+import { ref } from 'vue';
+
+// 控制 sliderCaptcha 展示
+const isSliderCaptchaVisible = ref(false)
 
 /**
  * 登录触发
  */
 const onLoginHandler = () => {
-  console.log('触发登录')
+  isSliderCaptchaVisible.value = true
+}
+
+/**
+ * 人类行为验证通过
+ */
+const onCaptchaSuccess = async () => {
+  isSliderCaptchaVisible.value = false
+  // 登录操作
+  console.log('执行登录操作')
 }
 </script>
