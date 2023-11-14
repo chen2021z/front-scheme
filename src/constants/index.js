@@ -28,3 +28,5 @@ export const CATEGORY_NOMAR_DATA = [
   { id: 'industrial_design', name: '人文艺术' },
   { id: 'industrial_design', name: '家居/家装' }
 ]
+// 登录方式
+export const LOGIN_TYPE_USERNAME = 'username'
