@@ -2,6 +2,10 @@
   <div
     class="relative h-screen bg-white dark:bg-zinc-800 text-center xl:bg-zinc-200"
   >
+    <!-- 头部图标：PC端 -->
+    <div class="hidden pt-5 xl:block"></div>
+    <!-- 头部图标：移动端 -->
+    <div class="h-[111px] xl:hidden"></div>
     <!-- 表单区 -->
     <div
       class="block px-3 mt-4 dark:bg-zinc-800 xl:bg-white xl:w-[388px] xl:dark:bg-zinc-900 xl:m-auto xl:mt-8 xl:py-4 xl:rounded-sm xl:shadow-lg"
