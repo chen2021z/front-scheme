@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import store from "../store";
 const service = axios.create({
   // 根据项目状态，自动切换请求的服务地址
   baseURL: import.meta.env.VITE_BASE_API,
@@ -10,10 +10,10 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     config.headers.icode = '300B3A2AFB04EAD7'
-    // if (store.getters.token) {
-    //   // 如果token存在 注入token
-    //   config.headers.Authorization = `Bearer ${store.getters.token}`
-    // }
+    if (store.getters.token) {
+      // 如果token存在 注入token
+      config.headers.Authorization = `Bearer ${store.getters.token}`
+    }
     return config // 必须返回配置
   },
   (error) => {

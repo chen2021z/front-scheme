@@ -93,6 +93,7 @@ import sliderCaptchaVue from './slider-captcha.vue'
 import { ref } from 'vue'
 import { LOGIN_TYPE_USERNAME } from '@/constants'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 // 控制 sliderCaptcha 展示
 const isSliderCaptchaVisible = ref(false)
 
@@ -113,6 +114,7 @@ const onCaptchaSuccess = async () => {
 // 登录时的 loading
 const loading = ref(false)
 const store = useStore()
+const router = useRouter()
 /**
  * 用户登录行为
  */
@@ -127,7 +129,7 @@ const onLogin = async () => {
   } finally {
     loading.value = false
   }
-  // router.push('/')
+  router.push('/')
 }
 
 // 用户输入的用户名和密码

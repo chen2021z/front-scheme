@@ -20,3 +20,11 @@ export const loginUser = (data) => {
     data
   })
 }
+/**
+ * 获取用户信息
+ */
+export const getProfile = () => {
+  return request({
+    url: '/user/profile'
+  })
+}
