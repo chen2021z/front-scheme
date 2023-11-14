@@ -47,6 +47,7 @@
         <div class="pt-1 pb-3 leading-[0px] text-right">
           <a
             class="inline-block p-1 text-zinc-400 text-right dark:text-zinc-600 hover:text-zinc-600 dark:hover:text-zinc-400 text-sm duration-400 cursor-pointer"
+            @click="$router.push('/register')"
           >
             去注册
           </a>
