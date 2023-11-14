@@ -1,5 +1,5 @@
-import axios from "axios";
-import store from "../store";
+import axios from 'axios'
+import store from '../store'
 const service = axios.create({
   // 根据项目状态，自动切换请求的服务地址
   baseURL: import.meta.env.VITE_BASE_API,
@@ -21,16 +21,30 @@ service.interceptors.request.use(
   }
 )
 
-
 /**
  * 响应拦截器，响应数据之后，then之前被调用
  */
-service.interceptors.response.use((response)=>{
-  const {success, message, data} = response.data
-  if(success){
-    return data
-  }
+service.interceptors.response.use(
+  (response) => {
+    const { success, message, data } = response.data
+    if (success) {
+      return data
+    }
 
-  return Promise.reject(new Error(message))
-})
+    return Promise.reject(new Error(message))
+  },
+  (error) => {
+    // 处理 token 超时问题
+    if (
+      error.response &&
+      error.response.data &&
+      error.response.data.code === 401
+    ) {
+      // TODO: token超时
+      store.dispatch('user/logout')
+    }
+    // TODO: 提示错误消息
+    return Promise.reject(error)
+  }
+)
 export default service
