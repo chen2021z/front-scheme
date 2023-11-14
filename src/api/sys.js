@@ -28,3 +28,13 @@ export const getProfile = () => {
     url: '/user/profile'
   })
 }
+/**
+ * 注册
+ */
+export const registerUser = (data) => {
+  return request({
+    url: '/sys/register',
+    method: 'POST',
+    data
+  })
+}

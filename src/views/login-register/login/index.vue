@@ -95,6 +95,8 @@ import { ref } from 'vue'
 import { LOGIN_TYPE_USERNAME } from '@/constants'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { message } from '@/libs'
+
 // 控制 sliderCaptcha 展示
 const isSliderCaptchaVisible = ref(false)
 
@@ -127,15 +129,17 @@ const onLogin = async () => {
       ...loginForm.value,
       loginType: LOGIN_TYPE_USERNAME
     })
+    router.push('/')
+  } catch (err) {
+    message('warn', err, 6000)
   } finally {
     loading.value = false
   }
-  router.push('/')
 }
 
 // 用户输入的用户名和密码
 const loginForm = ref({
-  username: 'LGD_Sunday',
-  password: '123123'
+  username: '',
+  password: ''
 })
 </script>
