@@ -53,6 +53,15 @@ export default {
         } `,
         6000
       )
+    },
+    /**
+     * 退出登录
+     */
+    logout(context) {
+      context.commit('setToken', '')
+      context.commit('setUserInfo', {})
+      // 退出登录之后，重新刷新下页面，因为对于前台项目而言，用户是否登录（是否为 VIP）看到的数据可能不同
+      location.reload()
     }
   }
 }
