@@ -22,6 +22,7 @@
           >
           <!-- 头像部分 -->
           <div
+            @click="onAvatarClick"
             class="relative w-[80px] h-[80px] group xl:cursor-pointer xl:left-[50%] xl:translate-x-[-50%]"
           >
             <img
@@ -129,6 +130,25 @@
         </m-button>
       </div>
     </div>
+
+    <!-- PC 端 -->
+    <m-dialog v-if="!isMobileTerminal" v-model="isDialogVisible">
+      <change-avatar-vue
+        :blob="currentBolb"
+        @close="isDialogVisible = false"
+      ></change-avatar-vue>
+    </m-dialog>
+    <!-- 移动端：在展示时指定高度 -->
+    <m-popup
+      v-else
+      :class="{ 'h-screen': isDialogVisible }"
+      v-model="isDialogVisible"
+    >
+      <change-avatar-vue
+        :blob="currentBolb"
+        @close="isDialogVisible = false"
+      ></change-avatar-vue>
+    </m-popup>
   </div>
 </template>
 
@@ -143,8 +163,9 @@ import { isMobileTerminal } from '@/utils/flexible'
 import { message, confirm } from '@/libs'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { putProfile } from '@/api/sys'
+import changeAvatarVue from './components/change-avatar.vue'
 
 const store = useStore()
 const router = useRouter()
@@ -160,10 +181,22 @@ const onAvatarClick = () => {
   inputFileTarget.value.click()
 }
 
+const isDialogVisible = ref(false)
+// 选中的图片
+const currentBolb = ref('')
 /**
  * 头像选择之后的回调
  */
-const onSelectImgHandler = () => {}
+const onSelectImgHandler = () => {
+  // 获取选中的文件
+  const imgFile = inputFileTarget.value.files[0]
+  // 生成 blob 对象
+  const blob = URL.createObjectURL(imgFile)
+  // 获取选中的图片
+  currentBolb.value = blob
+  // 展示 Dialog
+  isDialogVisible.value = true
+}
 
 /**
  * 移动端后退处理
@@ -192,4 +225,14 @@ const onChangeProfile = async () => {
   store.commit('user/setUserInfo', userInfo.value)
   loading.value = false
 }
+
+/**
+ * 监听 dialog 关闭
+ */
+watch(isDialogVisible, (val) => {
+  if (!val) {
+    // 防止 change 不重复触发
+    inputFileTarget.value.value = null
+  }
+})
 </script>
