@@ -13,6 +13,7 @@ export default [
         path: '/profile',
         name: 'profile',
         component: () => import('@/views/profile/index.vue'),
+        // 只有用户登录后才可进入
         meta: {
           user: true
         }

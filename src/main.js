@@ -9,6 +9,7 @@ import mLibs from './libs'
 import mDirectives from './derectives'
 // 注册 svg-icon
 import 'virtual:svg-icons-register'
+import './permission'
 
 useREM()
 useTheme()
