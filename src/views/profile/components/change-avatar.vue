@@ -51,6 +51,7 @@ import { onMounted, ref } from 'vue'
 import { getOSSClient } from '@/utils/sts'
 import { message } from '@/libs'
 import { useStore } from 'vuex'
+import { putProfile } from '@/api/sys'
 
 defineProps({
   blob: {
@@ -77,11 +78,30 @@ const putObjectToOSS = async (file) => {
     }`
     // 文件存放路径，文件
     const res = await ossClient.put(`images/${fileName}`, file)
-    console.log(res);
-    // TODO：图片上传成功
+    // 通知服务器
+    onChangeProfile(res.url)
   } catch (e) {
     message('error', e)
   }
+}
+
+/**
+ * 上传新头像到服务器
+ */
+const onChangeProfile = async (avatar) => {
+  // 更新本地数据
+  store.commit('user/setUserInfo', {
+    ...store.getters.userInfo,
+    avatar
+  })
+  // 更新服务器数据
+  await putProfile(store.getters.userInfo)
+  // 通知用户
+  message('success', '用户头像修改成功')
+  // 关闭 loading
+  loading.value = false
+  // 关闭 dialog
+  close()
 }
 
 /**
