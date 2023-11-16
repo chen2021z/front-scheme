@@ -48,3 +48,12 @@ export const putProfile = (data) => {
     data
   })
 }
+
+/**
+ * 获取 OSS 上传凭证
+ */
+export const getSts = () => {
+  return request({
+    url: '/user/sts'
+  })
+}

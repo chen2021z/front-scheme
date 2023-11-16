@@ -30,3 +30,7 @@ export const CATEGORY_NOMAR_DATA = [
 ]
 // 登录方式
 export const LOGIN_TYPE_USERNAME = 'username'
+
+// STS 上传数据
+export const REGION = 'oss-cn-beijing'
+export const BUCKET = 'imooc-front'
