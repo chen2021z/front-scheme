@@ -2,10 +2,17 @@
   <!-- 路由出口 -->
   <router-view v-slot="{ Component }">
     <!-- 动画组件 -->
-    <transition :name="transitionName">
+    <transition
+      :name="transitionName"
+      @before-enter="beforeEnter"
+      @after-leave="afterLeave"
+    >
       <!-- 缓存组件 -->
       <keep-alive>
-        <component :is="Component" />
+        <component
+          :is="Component"
+          :class="{ 'fixed top-0 left-0 w-screen z-50': isAnimation }"
+        />
       </keep-alive>
     </transition>
   </router-view>
@@ -51,6 +58,16 @@ const props = defineProps({
 const router = useRouter()
 // 跳转动画
 const transitionName = ref('')
+
+// 处理动画状态变化
+const isAnimation = ref(false)
+const beforeEnter = () => {
+  isAnimation.value = true
+}
+const afterLeave = () => {
+  isAnimation.value = false
+}
+
 /**
  * 监听路由变化
  */
@@ -64,12 +81,12 @@ router.beforeEach((to, from) => {
 // push页面时：新页面的进入动画
 .push-enter-active {
   animation-name: push-in;
-  animation-duration: 0.4s;
+  animation-duration: 0.5s;
 }
 // push页面时：老页面的退出动画
 .push-leave-active {
   animation-name: push-out;
-  animation-duration: 0.4s;
+  animation-duration: 0.5s;
 }
 // push页面时：新页面的进入动画
 @keyframes push-in {
@@ -93,12 +110,12 @@ router.beforeEach((to, from) => {
 // 后退页面时：即将展示的页面动画
 .back-enter-active {
   animation-name: back-in;
-  animation-duration: 0.4s;
+  animation-duration: 0.5s;
 }
 // 后退页面时：后退的页面执行的动画
 .back-leave-active {
   animation-name: back-out;
-  animation-duration: 0.4s;
+  animation-duration: 0.5s;
 }
 // 后退页面时：即将展示的页面动画
 @keyframes back-in {
