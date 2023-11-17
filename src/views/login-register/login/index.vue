@@ -47,7 +47,7 @@
         <div class="pt-1 pb-3 leading-[0px] text-right">
           <a
             class="inline-block p-1 text-zinc-400 text-right dark:text-zinc-600 hover:text-zinc-600 dark:hover:text-zinc-400 text-sm duration-400 cursor-pointer"
-            @click="$router.push('/register')"
+            @click="onToRegister"
           >
             去注册
           </a>
@@ -136,7 +136,14 @@ const onLogin = async () => {
     loading.value = false
   }
 }
-
+/**
+ * 进入注册页面
+ */
+const onToRegister = () => {
+  // 配置跳转方式
+  store.commit('app/changeRouterType', 'push')
+  router.push('/register')
+}
 // 用户输入的用户名和密码
 const loginForm = ref({
   username: '',
