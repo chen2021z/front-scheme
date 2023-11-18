@@ -38,20 +38,26 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'home'
+}
+</script>
+
 <script setup>
 import navigationVue from './components/navigation/index.vue'
 import listVue from './components/list/index.vue'
 import { isMobileTerminal } from '@/utils/flexible'
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 const store = useStore()
 const router = useRouter()
 /**
  * 我的按钮点击事件
  */
 const onMyClick = () => {
-  // 配置跳转方式
   store.commit('app/changeRouterType', 'push')
+  // 配置跳转方式
   if (store.getters.token) {
     router.push('/profile')
   } else {
