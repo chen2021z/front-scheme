@@ -81,4 +81,13 @@ onActivated(() => {
   }
   containerTarget.value.scrollTop = containerTargetScrollY.value
 })
+
+/**
+ * VIP 按钮点击事件
+ */
+const onVipClick = () => {
+  // 配置跳转方式
+  store.commit('app/changeRouterType', 'push')
+  router.push('/member')
+}
 </script>
