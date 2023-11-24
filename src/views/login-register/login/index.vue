@@ -65,7 +65,7 @@
 
         <div class="flex justify-around mt-4">
           <!-- QQ -->
-          <m-svg-icon class="w-4 cursor-pointer" name="qq"></m-svg-icon>
+          <qq-login></qq-login>
           <!-- 微信 -->
           <m-svg-icon class="w-4 cursor-pointer" name="wexin"></m-svg-icon>
         </div>
@@ -98,6 +98,7 @@ import { LOGIN_TYPE_USERNAME } from '@/constants'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { message } from '@/libs'
+import qqLogin from './qq-login.vue'
 
 // 控制 sliderCaptcha 展示
 const isSliderCaptchaVisible = ref(false)
