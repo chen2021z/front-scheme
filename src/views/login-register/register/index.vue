@@ -110,7 +110,7 @@ import {
 import { ref } from 'vue'
 import { LOGIN_TYPE_USERNAME } from '@/constants'
 import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { message } from '@/libs'
 /**
  * 插入规则
@@ -126,6 +126,7 @@ const regForm = ref({
 const loading = ref(false)
 const store = useStore()
 const router = useRouter()
+const route = useRoute()
 /**
  * 触发注册
  */
@@ -136,8 +137,11 @@ const onRegister = async () => {
       username: regForm.value.username,
       password: regForm.value.password
     }
-    // 触发注册
-    await store.dispatch('user/register', payload)
+    // 触发注册,携带第三方数据
+    await store.dispatch('user/register', {
+      ...payload,
+      ...router.query
+    })
     // 注册成功，触发登录
     await store.dispatch('user/login', {
       ...payload,
