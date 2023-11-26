@@ -22,7 +22,9 @@
         class="hidden xl:block opacity-0 w-full h-full absolute bg-zinc-900/50 top-0 left-0 rounded duration-300 group-hover:opacity-100"
       >
         <!-- 分享 -->
-        <m-button class="absolute top-1.5 left-1.5">分享</m-button>
+        <m-button class="absolute top-1.5 left-1.5" @click="onShareClick"
+          >分享</m-button
+        >
         <!-- 点赞 -->
         <m-button
           class="absolute top-1.5 right-1.5"
@@ -68,7 +70,7 @@ import { message } from '@/libs'
 import { saveAs } from 'file-saver'
 import { useFullscreen, useElementBounding } from '@vueuse/core'
 import { ref, computed } from 'vue'
-
+import { weiboShare } from '@/utils/share'
 const props = defineProps({
   data: {
     type: Object,
@@ -122,5 +124,15 @@ const onToPinsClick = () => {
     id: props.data.id,
     location: imgContainerCenter
   })
+}
+
+/**
+ * 分享按钮点击处理
+ */
+const onShareClick = () => {
+  weiboShare(
+    props.data.photo,
+    `http://mvvme.top/pins/${props.data.id}`
+  )
 }
 </script>

@@ -41,3 +41,8 @@ export const LOGIN_TYPE_QQ = 'QQ'
 
 // 兔小巢反馈地址
 export const FEEDBACK_URL = 'https://txc.qq.com/products/617289'
+
+// 微博APP Key
+export const WEI_BO_APP_KEY = '3454329089'
+// 微博用户的 UID
+export const WEI_BO_UID = '7530530581'
