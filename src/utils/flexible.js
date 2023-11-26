@@ -8,7 +8,10 @@ const { width, height } = useWindowSize()
  * 判断当前是都为移动设备，判断依据屏幕宽度否小于一个指定宽度
  */
 export const isMobileTerminal = computed(() => {
-  return width.value < PC_DEVICE_WIDTH
+  // return width.value < PC_DEVICE_WIDTH
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  )
 })
 
 /**
