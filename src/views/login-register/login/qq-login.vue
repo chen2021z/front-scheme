@@ -17,7 +17,7 @@ const QQ_LOGIN_URL =
 
 <script setup>
 import { onMounted } from 'vue'
-import { isMobileTerminal } from '@/utils/flexible'
+import brodacast from './brodacast'
 
 // QQ 登录挂起
 onMounted(() => {
@@ -42,7 +42,10 @@ onMounted(() => {
         figureurl_qq_2: data.figureurl_qq_2,
         accessToken
       }
-      console.log(oauthObj)
+      // 4. 完成跨页面传输
+      brodacast.send(oauthObj)
+      // 5. 在 PC 端下，关闭第三方窗口
+      // window.close()
     }
   )
 })
@@ -64,5 +67,13 @@ const openQQWindow = async () => {
     'oauth2Login_10609',
     'height=525,width=585, toolbar=no, menubar=no, scrollbars=no, status=no, location=yes, resizable=yes'
   )
+  // 打开视窗之后开始等待
+  brodacast.wait().then(async (oauthObj) => {
+    // 登录成功,关闭通知
+    brodacast.clear()
+    // TODO：执行登录操作
+    console.log('TODO：执行登录操作')
+    console.log(oauthObj)
+  })
 }
 </script>
