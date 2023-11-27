@@ -35,5 +35,13 @@ export default [
     meta: {
       user: true // 需要登录才可以访问
     }
+  },
+  {
+    path: '/pay/result',
+    name: 'payResult',
+    component: () => import('@/views/pay/index.vue'),
+    meta: {
+      user: true
+    }
   }
 ]
