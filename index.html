@@ -26,6 +26,27 @@
     ></script>
   </head>
   <body>
+    <!-- 阿里云ARMS -->
+    <script>
+      !(function (c, b, d, a) {
+        c[a] || (c[a] = {})
+        c[a].config = {
+          pid: 'h7qf2adk4o@040e775a0b48431',
+          appType: 'web',
+          imgUrl: 'https://arms-retcode.aliyuncs.com/r.png?',
+          sendResource: true,
+          enableLinkTrace: true,
+          behavior: true,
+          enableConsole: true,
+          useFmp: true,
+          enableSPA: true
+        }
+        with (b)
+          with (body)
+            with (insertBefore(createElement('script'), firstChild))
+              setAttribute('crossorigin', '', (src = d))
+      })(window, document, 'https://sdk.rum.aliyuncs.com/v1/bl.js', '__bl')
+    </script>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
