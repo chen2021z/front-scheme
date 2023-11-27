@@ -130,9 +130,6 @@ const onToPinsClick = () => {
  * 分享按钮点击处理
  */
 const onShareClick = () => {
-  weiboShare(
-    props.data.photo,
-    `http://mvvme.top/pins/${props.data.id}`
-  )
+  weiboShare(props.data.photo, `http://mvvme.top/pins/${props.data.id}`)
 }
 </script>
